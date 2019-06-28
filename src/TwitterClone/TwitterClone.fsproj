@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <AssemblyName>TwitterClone</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DBAccess.fs" />
+    <Compile Include="Models\Tweet.fs" />
+    <Compile Include= "Models\User.fs" />
+    <Compile Include="Models.fs" />
+    <Compile Include="HttpHandlers.fs" />
+    <Compile Include="Program.fs" />
+    <None Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Giraffe" Version="3.4.*" />
+    <PackageReference Include="npgsql" Version="4.0.7" />
+    <PackageReference Include="SQLProvider" Version="1.1.65" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.*" />
+  </ItemGroup>
+</Project>

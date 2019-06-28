@@ -1,0 +1,10 @@
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\obj\Debug\netcoreapp2.1\TwitterClone.fsprojAssemblyReference.cache
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\obj\Debug\netcoreapp2.1\TwitterClone.AssemblyInfoInputs.cache
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\obj\Debug\netcoreapp2.1\TwitterClone.AssemblyInfo.fs
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\bin\Debug\netcoreapp2.1\TwitterClone.deps.json
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\bin\Debug\netcoreapp2.1\TwitterClone.runtimeconfig.json
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\bin\Debug\netcoreapp2.1\TwitterClone.runtimeconfig.dev.json
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\bin\Debug\netcoreapp2.1\TwitterClone.dll
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\bin\Debug\netcoreapp2.1\TwitterClone.pdb
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\obj\Debug\netcoreapp2.1\TwitterClone.dll
+C:\Users\Dane\Desktop\TwitterClone\src\TwitterClone\obj\Debug\netcoreapp2.1\TwitterClone.pdb

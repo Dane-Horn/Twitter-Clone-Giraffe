@@ -1,0 +1,142 @@
+{
+  "format": 1,
+  "restore": {
+    "c:\\Users\\Dane\\Desktop\\TwitterClone\\tests\\TwitterClone.Tests\\TwitterClone.Tests.fsproj": {}
+  },
+  "projects": {
+    "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+        "projectName": "TwitterClone",
+        "projectPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+        "packagesPath": "C:\\Users\\Dane\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Dane\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[4.6.2, )"
+            },
+            "Giraffe": {
+              "target": "Package",
+              "version": "[3.4.*, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "target": "Package",
+              "version": "[2.1.*, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "TaskBuilder.fs": {
+              "target": "Package",
+              "version": "[2.1.*, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "c:\\Users\\Dane\\Desktop\\TwitterClone\\tests\\TwitterClone.Tests\\TwitterClone.Tests.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "c:\\Users\\Dane\\Desktop\\TwitterClone\\tests\\TwitterClone.Tests\\TwitterClone.Tests.fsproj",
+        "projectName": "TwitterClone.Tests",
+        "projectPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\tests\\TwitterClone.Tests\\TwitterClone.Tests.fsproj",
+        "packagesPath": "C:\\Users\\Dane\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\tests\\TwitterClone.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Dane\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj": {
+                "projectPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[4.6.2, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "target": "Package",
+              "version": "[2.1.*, )"
+            },
+            "Microsoft.AspNetCore.TestHost": {
+              "target": "Package",
+              "version": "[2.1.*, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[15.9.*, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.*, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.*, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}
