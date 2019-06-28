@@ -14,7 +14,7 @@ type User = {
     Password: string
 }
 
-let handlePostUser (fields as email: string, password: string) (next: HttpFunc) (ctx: HttpContext) =
+let handlePostUser (email: string, password: string) (next: HttpFunc) (ctx: HttpContext) =
     let row = Users.``Create(email, password)`` (email, password)
     let newId = (Guid.NewGuid ()).ToString ()
     row.Id <- newId

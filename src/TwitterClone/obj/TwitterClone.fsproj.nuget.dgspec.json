@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj": {}
+    "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj": {}
   },
   "projects": {
-    "C:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj": {
+    "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+        "projectUniqueName": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj",
         "projectName": "TwitterClone",
-        "projectPath": "C:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+        "projectPath": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj",
         "packagesPath": "C:\\Users\\Dane\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\obj\\",
+        "outputPath": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

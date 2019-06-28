@@ -12340,11 +12340,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+      "projectUniqueName": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj",
       "projectName": "TwitterClone",
-      "projectPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\TwitterClone.fsproj",
+      "projectPath": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\TwitterClone.fsproj",
       "packagesPath": "C:\\Users\\Dane\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Dane\\Desktop\\TwitterClone\\src\\TwitterClone\\obj\\",
+      "outputPath": "C:\\Users\\Dane\\Desktop\\Twitter-Clone-Giraffe\\src\\TwitterClone\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
