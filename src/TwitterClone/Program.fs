@@ -1,18 +1,22 @@
 module TwitterClone.App
 
 open System
+open System.Text
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
+open Microsoft.AspNetCore.Authentication.JwtBearer
 open Giraffe
 open TwitterClone.HttpHandlers
 open TwitterClone.Models.Tweet
 open TwitterClone.Models.User
+open Microsoft.IdentityModel.Tokens
 // ---------------------------------
 // Web app
 // ---------------------------------
+
 
 let webApp =
     choose [
@@ -53,11 +57,24 @@ let configureApp (app : IApplicationBuilder) =
     | false -> app.UseGiraffeErrorHandler errorHandler)
         .UseHttpsRedirection()
         .UseCors(configureCors)
+        .UseAuthentication()
         .UseGiraffe(webApp)
 
 let configureServices (services : IServiceCollection) =
     services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(fun options ->
+            options.TokenValidationParameters <- TokenValidationParameters (
+                ValidateActor = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "jwtwebapp.net",
+                ValidAudience = "jwtwebapp.net",
+                IssuerSigningKey = SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret"))
+            )
+        ) |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
     builder.AddFilter(fun l -> l.Equals LogLevel.Error)
