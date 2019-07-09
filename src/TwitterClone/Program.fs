@@ -9,10 +9,12 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Authentication.JwtBearer
 open Giraffe
+open Microsoft.IdentityModel.Tokens
+
 open TwitterClone.HttpHandlers
 open TwitterClone.Models.Tweet
 open TwitterClone.Models.User
-open Microsoft.IdentityModel.Tokens
+open TwitterClone.Auth
 // ---------------------------------
 // Web app
 // ---------------------------------
@@ -28,6 +30,10 @@ let webApp =
                     routef "/create-tweet/%s" handlePostTweet
                     routef "/register/%s/%s" handlePostUser
                     route "/get-tweets" >=> handleGetTweet
+                    route "/secured" >=> authorize >=> handleGetSecure
+                ]
+                POST >=> choose [
+                    route "/token" >=> handlePostSecure
                 ]
             ])
         setStatusCode 404 >=> text "Not Found" ]
@@ -45,10 +51,11 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 // ---------------------------------
 
 let configureCors (builder : CorsPolicyBuilder) =
-    builder.WithOrigins("http://localhost:8080")
-           .AllowAnyMethod()
-           .AllowAnyHeader()
-           |> ignore
+    builder//.WithOrigins("http://localhost:8080")
+        // .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        |> ignore
 
 let configureApp (app : IApplicationBuilder) =
     let env = app.ApplicationServices.GetService<IHostingEnvironment>()
@@ -72,14 +79,14 @@ let configureServices (services : IServiceCollection) =
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = "jwtwebapp.net",
                 ValidAudience = "jwtwebapp.net",
-                IssuerSigningKey = SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret"))
+                IssuerSigningKey = SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretsecretsecretsecret"))
             )
         ) |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
     builder.AddFilter(fun l -> l.Equals LogLevel.Error)
-           .AddConsole()
-           .AddDebug() |> ignore
+        .AddConsole()
+        .AddDebug() |> ignore
 
 [<EntryPoint>]
 let main _ =

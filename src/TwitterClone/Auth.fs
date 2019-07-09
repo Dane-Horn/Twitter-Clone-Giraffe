@@ -17,7 +17,7 @@ let generateToken email =
         Claim (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) |]
     let expires = Nullable (DateTime.UtcNow.AddHours (1.0))
     let notBefore = Nullable (DateTime.UtcNow) 
-    let securityKey = SymmetricSecurityKey (Encoding.UTF8.GetBytes("secret"))
+    let securityKey = SymmetricSecurityKey (Encoding.UTF8.GetBytes("secretsecretsecretsecret"))
     let signingCredentials = SigningCredentials (key = securityKey, algorithm = SecurityAlgorithms.HmacSha256)
 
     let token = 
