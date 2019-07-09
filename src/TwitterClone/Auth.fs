@@ -19,7 +19,7 @@ let generateToken email =
     let notBefore = Nullable (DateTime.UtcNow) 
     let securityKey = SymmetricSecurityKey (Encoding.UTF8.GetBytes("secret"))
     let signingCredentials = SigningCredentials (key = securityKey, algorithm = SecurityAlgorithms.HmacSha256)
-   
+
     let token = 
         JwtSecurityToken (
             issuer = "jwtwebapp.net",
