@@ -40,11 +40,8 @@ let handlePostSecure =
                 }
             match userMaybe with
             | Some user -> 
-                // let user = Map.empty.Add("user", user.ColumnValues |> Map.ofSeq) 
                 let token = Map.empty.Add("token", generateToken user.Id)
                 return! json token next ctx
             | None ->
                 return! text "User does not exist" next ctx
-            // let user = user.ColumnValues |> Map.ofSeq
-            // return! json user next ctx
         }
