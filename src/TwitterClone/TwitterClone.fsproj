@@ -9,6 +9,7 @@
     <Compile Include="DBAccess.fs" />
     <Compile Include="Models\Tweet.fs" />
     <Compile Include="Models\User.fs" />
+    <Compile Include="Models\Auth.fs" />
     <Compile Include="Models.fs" />
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
