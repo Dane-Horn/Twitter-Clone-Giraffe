@@ -85,3 +85,19 @@ let handleFollow (followingId: string) (next: HttpFunc) (ctx: HttpContext) =
             dbctx.ClearUpdates () |> ignore
         let user = {Id = user.Id; Email = user.Email; Username = user.Username}
         json user next ctx
+
+let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
+    let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier
+    let users = query {
+        for user in Users do
+            where (user.Id = userId)
+            for following in user.``public.following by id`` do
+                for followedUser in following.``public.user by id_1`` do
+                    select (followedUser)
+    }
+    let users = 
+        users
+        |> Seq.toArray
+        |> Array.map (fun (user) -> 
+            {Id = user.Id; Email = user.Email; Username = user.Username})
+    json users next ctx

@@ -36,6 +36,7 @@ let webApp =
                 ]
                 subRoute "/user" (
                     choose [
+                        route "/following" >=> authorize >=> handleGetFollowing
                         route "/login" >=> handleLogin
                         route "/me" >=> authorize >=> handleMe
                         route "/register" >=> handleRegisterUser
