@@ -101,3 +101,6 @@ let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
         |> Array.map (fun (user) -> 
             {Id = user.Id; Email = user.Email; Username = user.Username})
     json users next ctx
+
+let handleGetFeed (next: HttpFunc) (ctx: HttpContext) =
+    ()

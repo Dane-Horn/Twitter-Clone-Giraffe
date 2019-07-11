@@ -8,6 +8,7 @@
     <Compile Include="DataModels.fs" />
     <Compile Include="Auth.fs" />
     <Compile Include="DBAccess.fs" />
+    <Compile Include="Models\Retweet.fs" />
     <Compile Include="Models\Tweet.fs" />
     <Compile Include="Models\User.fs" />
     <Compile Include="Models\Auth.fs" />

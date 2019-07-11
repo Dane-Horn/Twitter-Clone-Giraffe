@@ -33,4 +33,10 @@ type TweetResponse = {
     CreatedAt: DateTime
     Replies: TweetResponse array
 }
+
+type RetweetResponse = {
+    Id: string
+    UserId: string
+    TweetId: string
+}
 //#endregion
