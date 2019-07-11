@@ -7,6 +7,7 @@ open System.Security.Claims
 open TwitterClone.DataModels
 open TwitterClone.DBAccess
 open System
+
 let handlePostTweet (next: HttpFunc) (ctx: HttpContext) =
     task {
         let! newTweet = ctx.BindJsonAsync<Tweet> () 
@@ -25,12 +26,36 @@ let handleGetTweet (next: HttpFunc) (ctx: HttpContext) =
     let tweets = 
         query {
             for tweet in Tweets do
-            where (tweet.UserId = Some userId)
+            where (tweet.UserId = Some userId && tweet.References = None)
             select tweet
         }
     let tweets = 
         tweets 
         |> Seq.toArray 
-        |> Array.map (fun tweet -> {Id = tweet.Id; Text = tweet.Text; CreatedAt = tweet.CreatedAt})
+        |> Array.map (fun tweet -> {
+            Id = tweet.Id; 
+            Text = tweet.Text; 
+            CreatedAt = tweet.CreatedAt;
+            Replies = 
+                tweet.``public.tweet by id`` 
+                |> Seq.toArray
+                |> Array.map (fun tweet -> {
+                    Id = tweet.Id; 
+                    Text = tweet.Text; 
+                    CreatedAt = tweet.CreatedAt; 
+                    Replies = 
+                        tweet.``public.tweet by id``
+                        |> Seq.toArray
+                        |> Array.map (fun tweet -> {
+                            Id = tweet.Id;
+                            Text = tweet.Text;
+                            CreatedAt = tweet.CreatedAt;
+                            Replies = [||]
+                        }
+                        )
+                }
+                )
+            }
+            )
     let response = Map.empty.Add("tweets", tweets)
     json response next ctx

@@ -31,5 +31,6 @@ type TweetResponse = {
     Id: string
     Text: string
     CreatedAt: DateTime
+    Replies: TweetResponse array
 }
 //#endregion
