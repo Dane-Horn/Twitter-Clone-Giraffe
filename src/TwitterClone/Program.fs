@@ -28,7 +28,7 @@ let webApp =
                     route "/hello" >=> handleGetHello
                     route "/create-tweet" >=> handlePostTweet
                     route "/get-tweets" >=> authorize >=> handleGetTweet
-                    route "/secured" >=> authorize >=> handleMe
+                    route "/posts/own" >=> authorize >=> handleGetTweet
                 ]
                 POST >=> choose [
                     route "/token" >=> handleLogin

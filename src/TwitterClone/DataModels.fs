@@ -1,4 +1,5 @@
 namespace TwitterClone.DataModels
+open System
 
 //#region User Models
 [<CLIMutable>]
@@ -27,7 +28,8 @@ type Tweet = {
 }
 
 type TweetResponse = {
-    id: string
+    Id: string
     Text: string
+    CreatedAt: DateTime
 }
 //#endregion

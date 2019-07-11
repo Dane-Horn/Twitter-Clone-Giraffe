@@ -21,10 +21,16 @@ let handlePostTweet (next: HttpFunc) (ctx: HttpContext) =
     }    
     
 let handleGetTweet (next: HttpFunc) (ctx: HttpContext) = 
+    let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier 
     let tweets = 
         query {
             for tweet in Tweets do
+            where (tweet.UserId = Some userId)
             select tweet
         }
-    let tweets = tweets |> Seq.toArray |> Array.map (fun i -> i.ColumnValues |> Map.ofSeq)
-    json tweets next ctx
+    let tweets = 
+        tweets 
+        |> Seq.toArray 
+        |> Array.map (fun tweet -> {Id = tweet.Id; Text = tweet.Text; CreatedAt = tweet.CreatedAt})
+    let response = Map.empty.Add("tweets", tweets)
+    json response next ctx
