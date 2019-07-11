@@ -92,7 +92,7 @@ let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
         for user in Users do
             where (user.Id = userId)
             for following in user.``public.following by id`` do
-                for followedUser in following.``public.user by id_1`` do
+                for followedUser in following.``public.users by id_1`` do
                     select (followedUser)
     }
     let users = 
@@ -102,5 +102,31 @@ let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
             {Id = user.Id; Email = user.Email; Username = user.Username})
     json users next ctx
 
+let getFollowingTweets (userId: string) = 
+    query {
+        for user in Users do
+            where (user.Id = userId)
+            for following in user.``public.following by id`` do
+                for followedUser in following.``public.users by id_1`` do
+                    for tweet in followedUser.``public.tweet by id`` do
+                    select (tweet)}
+    |> Seq.toArray 
+    |> Array.map (fun tweet -> {Id = tweet.Id; Text = tweet.Text; CreatedAt = tweet.CreatedAt; Replies = [||]})
+
+let getFollowingRetweets (userId: string) =
+    query {
+        for user in Users do
+            where (user.Id = userId)
+            for following in user.``public.following by id`` do
+                for followedUser in following.``public.users by id_1`` do
+                    for retweet in followedUser.``public.retweet by id`` do
+                    select (retweet)}
+    |> Seq.toArray  
+    |> Array.map (fun retweet -> {Id = retweet.Id; UserId = retweet.User; TweetId = retweet.TweetId})
+
 let handleGetFeed (next: HttpFunc) (ctx: HttpContext) =
-    ()
+    let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier
+    let tweets = getFollowingTweets userId
+    let retweets = getFollowingRetweets userId
+    let posts = {Tweets = tweets; Retweets = retweets}
+    json posts next ctx

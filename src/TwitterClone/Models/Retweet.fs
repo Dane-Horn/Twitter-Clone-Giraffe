@@ -15,7 +15,7 @@ let handlePostRetweet (tweetId: string) (next: HttpFunc) (ctx: HttpContext) =
     let retweet = Retweets.Create ()
     let newId = (Guid.NewGuid ()).ToString ()
     retweet.Id <- newId
-    retweet.UserId <- userId
+    retweet.User <- userId
     retweet.TweetId <- tweetId
     try
         dbctx.SubmitUpdates ()

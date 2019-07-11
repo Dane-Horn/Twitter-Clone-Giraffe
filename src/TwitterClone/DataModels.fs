@@ -39,4 +39,9 @@ type RetweetResponse = {
     UserId: string
     TweetId: string
 }
+
+type PostsResponse = {
+    Tweets: TweetResponse array
+    Retweets: RetweetResponse array
+}
 //#endregion
