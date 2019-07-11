@@ -25,13 +25,9 @@ let webApp =
         subRoute "/api"
             (choose [
                 GET >=> choose [
-                    route "/hello" >=> handleGetHello
-                    route "/create-tweet" >=> handlePostTweet
-                    route "/get-tweets" >=> authorize >=> handleGetTweet
                     route "/posts/own" >=> authorize >=> handleGetTweet
                 ]
                 POST >=> choose [
-                    route "/token" >=> handleLogin
                     routef "/follow/%s" (fun id -> authorize >=> handleFollow id)
                 ]
                 subRoute "/user" (
