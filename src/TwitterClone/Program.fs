@@ -32,6 +32,7 @@ let webApp =
                 ]
                 POST >=> choose [
                     route "/token" >=> handleLogin
+                    routef "/follow/%s" (fun id -> authorize >=> handleFollow id)
                 ]
                 subRoute "/user" (
                     choose [

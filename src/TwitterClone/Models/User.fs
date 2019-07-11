@@ -64,3 +64,24 @@ let handleLogin =
             | None ->
                 return! text "User does not exist" next ctx
         }
+let handleFollow (followingId: string) (next: HttpFunc) (ctx: HttpContext) =
+    let userToFollow = query {
+        for user in Users do
+        where(user.Id = followingId)
+        select (Some user)
+        exactlyOneOrDefault
+    }
+    match userToFollow with
+    | None -> 
+        text "User does not exist" next ctx
+    | Some user ->
+        let newFollow = Followings.Create ()
+        let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier
+        newFollow.UserId <- userId
+        newFollow.FollowingId <- followingId
+        try
+            dbctx.SubmitUpdates ()
+        with e -> 
+            dbctx.ClearUpdates () |> ignore
+        let user = {Id = user.Id; Email = user.Email; Username = user.Username}
+        json user next ctx

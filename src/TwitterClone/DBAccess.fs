@@ -25,3 +25,4 @@ let dbctx = Sql.GetDataContext ()
 
 let Tweets = dbctx.Public.Tweet
 let Users = dbctx.Public.User
+let Followings = dbctx.Public.Following
