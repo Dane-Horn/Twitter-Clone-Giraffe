@@ -5,12 +5,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataModels.fs" />
     <Compile Include="Auth.fs" />
     <Compile Include="DBAccess.fs" />
     <Compile Include="Models\Tweet.fs" />
     <Compile Include="Models\User.fs" />
     <Compile Include="Models\Auth.fs" />
-    <Compile Include="Models.fs" />
     <Compile Include="HttpHandlers.fs" />
     <Compile Include="Program.fs" />
     <None Include="web.config" />

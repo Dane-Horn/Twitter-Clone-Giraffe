@@ -4,12 +4,7 @@ module HttpHandlers =
     open Microsoft.AspNetCore.Http
     open FSharp.Control.Tasks.V2.ContextInsensitive
     open Giraffe
-    open TwitterClone.Models.Tweet
-
-    type LoginModel = {
-        Email: string
-        Password: string
-    }
+    open TwitterClone.DataModels
 
     let handleGetHello =
         fun (next : HttpFunc) (ctx : HttpContext) ->

@@ -3,25 +3,23 @@ module TwitterClone.Models.Tweet
 open Microsoft.AspNetCore.Http
 open FSharp.Control.Tasks.V2.ContextInsensitive
 open Giraffe
-
+open System.Security.Claims
+open TwitterClone.DataModels
 open TwitterClone.DBAccess
 open System
-
-[<CLIMutable>]
-type Tweet =
-    {
-        Id: string
-        Text : string
-    }
-
-let handlePostTweet (text: string) (next: HttpFunc) (ctx: HttpContext) =
-        let row = Tweets.``Create(text)`` text
+let handlePostTweet (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let! newTweet = ctx.BindJsonAsync<Tweet> () 
+        let row = Tweets.``Create(text)`` newTweet.Text
         let newId = (Guid.NewGuid ()).ToString () 
+        let userId = ctx.User.FindFirst ClaimTypes.NameIdentifier
         row.Id <- newId
-        row.UserId <- Some "0381e841-ce4f-422c-b4a4-e5a4643375c5"
+        row.UserId <- Some userId.Value
         dbctx.SubmitUpdates ()
-        json newId next ctx
-
+        let tweetId = Map.empty.Add("id", row.Id)
+        return! json tweetId next ctx
+    }    
+    
 let handleGetTweet (next: HttpFunc) (ctx: HttpContext) = 
     let tweets = 
         query {

@@ -14,7 +14,6 @@ open Microsoft.IdentityModel.Tokens
 open TwitterClone.HttpHandlers
 open TwitterClone.Models.Tweet
 open TwitterClone.Models.User
-open TwitterClone.Models.Auth
 open TwitterClone.Auth
 // ---------------------------------
 // Web app
@@ -27,20 +26,27 @@ let webApp =
             (choose [
                 GET >=> choose [
                     route "/hello" >=> handleGetHello
-                    route "/json-test" >=> json [| "this"; "is"; "json" |]
-                    routef "/create-tweet/%s" handlePostTweet
-                    routef "/register/%s/%s" handlePostUser
-                    route "/get-tweets" >=> handleGetTweet
-                    route "/secured" >=> authorize >=> handleGetSecure
+                    route "/create-tweet" >=> handlePostTweet
+                    route "/get-tweets" >=> authorize >=> handleGetTweet
+                    route "/secured" >=> authorize >=> handleMe
                 ]
                 POST >=> choose [
-                    route "/token" >=> handlePostSecure
+                    route "/token" >=> handleLogin
                 ]
-                subRoute "/user"
-                    (choose [
-                        route "/login" >=> handlePostSecure
-                        route "/me" >=> authorize >=> handleGetSecure
-                    ])
+                subRoute "/user" (
+                    choose [
+                        route "/login" >=> handleLogin
+                        route "/me" >=> authorize >=> handleMe
+                        route "/register" >=> handleRegisterUser
+                    ]
+                )
+                subRoute "/tweet" (
+                    choose [
+                        POST >=> choose [
+                            route "" >=> authorize >=> handlePostTweet
+                        ]
+                    ]
+                )
             ])
         setStatusCode 404 >=> text "Not Found" ]
 
