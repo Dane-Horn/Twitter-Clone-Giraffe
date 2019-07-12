@@ -42,13 +42,22 @@ let webApp =
                 subRoute "/tweet" (
                     choose [
                         POST >=> choose [
-                            route "" >=> authorize >=> handlePostTweet
+                            route "" >=> authorize >=> handlePostTweet None
+                            routef "/%s/reply" (fun id -> authorize >=> handlePostTweet (Some id))
+                        ]
+                        DELETE >=> choose [
+                            routef "/%s" (fun id -> authorize >=> handleDeleteTweet id)
                         ]
                     ]
                 )
                 subRoute "/retweet" (
                     choose [
-                        routef "/%s" (fun tweetId -> authorize >=> handlePostRetweet tweetId)
+                        POST >=> choose [
+                            routef "/%s" (fun tweetId -> authorize >=> handlePostRetweet tweetId)
+                        ]
+                        DELETE >=> choose [
+                            routef "/%s" (fun id -> authorize >=> handleDeleteRetweet id)
+                        ]
                     ]
                 )
             ])
