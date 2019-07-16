@@ -25,7 +25,7 @@ let handleRegisterUser (next: HttpFunc) (ctx: HttpContext) =
             dbctx.SubmitUpdates ()    
         with (e) ->
             dbctx.ClearUpdates () |> ignore
-        let result = {Id = newId; Email = newUser.Email; Username = newUser.Username}
+        let result = {Id = newId; Username = newUser.Username}
         let result = Map.empty.Add ("user", result)
         return! json result next ctx
     }
@@ -36,7 +36,7 @@ let handleMe =
             query {
                 for user in Users do
                 where (user.Id = id.Value)
-                select (Some {Id = user.Id; Email=user.Email; Username=user.Username})
+                select (Some {Id = user.Id; Username=user.Username})
                 exactlyOneOrDefault
             }
         match userMaybe with
@@ -73,7 +73,9 @@ let handleFollow (followingId: string) (next: HttpFunc) (ctx: HttpContext) =
     }
     match userToFollow with
     | None -> 
-        text "User does not exist" next ctx
+        ctx.SetStatusCode 400
+        let response = Map.empty.Add ("message", "Invalid data sent") 
+        json response next ctx
     | Some user ->
         let newFollow = Followings.Create ()
         let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier
@@ -81,10 +83,13 @@ let handleFollow (followingId: string) (next: HttpFunc) (ctx: HttpContext) =
         newFollow.FollowingId <- followingId
         try
             dbctx.SubmitUpdates ()
+            let user = {Id = user.Id; Username = user.Username}
+            json user next ctx
         with e -> 
             dbctx.ClearUpdates () |> ignore
-        let user = {Id = user.Id; Email = user.Email; Username = user.Username}
-        json user next ctx
+            ctx.SetStatusCode 400
+            let response = Map.empty.Add ("message", "Invalid data sent") 
+            json response next ctx
 
 let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
     let userId = ctx.User.FindFirstValue ClaimTypes.NameIdentifier
@@ -99,7 +104,7 @@ let handleGetFollowing (next: HttpFunc) (ctx: HttpContext) =
         users
         |> Seq.toArray
         |> Array.map (fun (user) -> 
-            {Id = user.Id; Email = user.Email; Username = user.Username})
+            {Id = user.Id; Username = user.Username})
     json users next ctx
 
 let getFollowingTweets (userId: string) = 

@@ -17,9 +17,14 @@ let handlePostTweet (references: string Option) (next: HttpFunc) (ctx: HttpConte
         row.Id <- newId
         row.UserId <- Some userId.Value
         row.References <- references
-        dbctx.SubmitUpdates ()
-        let tweetId = Map.empty.Add("id", row.Id)
-        return! json tweetId next ctx
+        try 
+            dbctx.SubmitUpdates ()
+            let tweetId = Map.empty.Add("id", row.Id)
+            return! json tweetId next ctx
+        with e ->
+            dbctx.ClearUpdates () |> ignore
+            let response = Map.empty.Add("message", "invalid data sent")
+            return! json response next ctx
     }    
     
 let handleGetTweet (next: HttpFunc) (ctx: HttpContext) = 
@@ -79,9 +84,12 @@ let handleDeleteTweet (id: string) (next: HttpFunc) (ctx: HttpContext) =
         | false -> text "Unauthorized" next ctx
         | true ->
             try 
+                ctx.SetStatusCode 201
                 tweet.Delete ()
                 dbctx.SubmitUpdates ()
                 text "Tweet deleted" next ctx
             with (e) ->
                 dbctx.ClearUpdates () |> ignore
-                text "DB error occurred" next ctx
+                ctx.SetStatusCode 400
+                let response = Map.empty.Add ("message", "invalid data sent")
+                json response next ctx

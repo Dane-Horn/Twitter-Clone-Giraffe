@@ -11,7 +11,6 @@ type User = {
 
 type UserResponse = {
     Id: string
-    Email: string
     Username: string
 }
 
