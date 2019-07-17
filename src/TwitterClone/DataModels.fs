@@ -15,8 +15,8 @@ type UserResponse = {
 }
 
 type LoginModel = {
-        Email: string
-        Password: string
+    Email: string
+    Password: string
 }
 //#endregion
 //#region  Tweet Models

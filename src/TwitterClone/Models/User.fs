@@ -9,7 +9,7 @@ open TwitterClone.Auth
 open TwitterClone.DBAccess
 open TwitterClone.DataModels
 open System
-
+open BCrypt
 
 
 let handleRegisterUser (next: HttpFunc) (ctx: HttpContext) =
@@ -17,9 +17,11 @@ let handleRegisterUser (next: HttpFunc) (ctx: HttpContext) =
         let row = Users.Create ()
         let! newUser = ctx.BindJsonAsync<User> ()
         let newId = (Guid.NewGuid ()).ToString ()
+        let salt = BCryptHelper.GenerateSalt SaltRevision.Revision2B
+        let newPass = BCryptHelper.HashPassword(newUser.Password, salt)
         row.Id <- newId
         row.Email <- newUser.Email
-        row.Password <- newUser.Password
+        row.Password <- newPass
         row.Username <- newUser.Username
         try 
             dbctx.SubmitUpdates ()    
@@ -50,17 +52,21 @@ let handleLogin =
         task {
             let! model = ctx.BindJsonAsync<LoginModel> ()
             let email = model.Email
-            let password = model.Password
             let idMaybe = query {
                 for user in Users do
-                    where (user.Email = email && user.Password = password)
-                    select (Some (user.Id))
+                    where (user.Email = email)
+                    select (Some (user.Id, user.Password))
                     exactlyOneOrDefault
                 }
             match idMaybe with
-            | Some id -> 
-                let token = Map.empty.Add("token", generateToken id)
-                return! json token next ctx
+            | Some (id, password) ->
+                if BCryptHelper.CheckPassword (model.Password, password)
+                then 
+                    let token = Map.empty.Add("token", generateToken id)
+                    return! json token next ctx
+                else
+                    ctx.SetStatusCode 401
+                    return! text "User does not exist" next ctx
             | None ->
                 return! text "User does not exist" next ctx
         }
