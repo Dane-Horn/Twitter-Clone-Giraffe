@@ -31,8 +31,7 @@ let handleRegisterUser (next: HttpFunc) (ctx: HttpContext) =
         let result = Map.empty.Add ("user", result)
         return! json result next ctx
     }
-let handleMe = 
-    fun (next: HttpFunc) (ctx: HttpContext) ->
+let handleMe (next: HttpFunc) (ctx: HttpContext) =
         let id = ctx.User.FindFirst ClaimTypes.NameIdentifier
         let userMaybe= 
             query {
@@ -46,7 +45,8 @@ let handleMe =
             let user = Map.empty.Add("user", user)
             json user next ctx
         | None ->
-            text "User does not exist" next ctx
+            ctx.SetStatusCode 401
+            text "Unauthorized" next ctx
 let handleLogin = 
     fun (next: HttpFunc) (ctx: HttpContext) ->
         task {
