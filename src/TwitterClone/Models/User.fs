@@ -42,7 +42,6 @@ let handleMe (next: HttpFunc) (ctx: HttpContext) =
             }
         match userMaybe with
         | Some user ->
-            let user = Map.empty.Add("user", user)
             json user next ctx
         | None ->
             ctx.SetStatusCode 401

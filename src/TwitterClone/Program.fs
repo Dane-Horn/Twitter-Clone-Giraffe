@@ -11,6 +11,7 @@ open Microsoft.AspNetCore.Authentication.JwtBearer
 open Giraffe
 open Microsoft.IdentityModel.Tokens
 
+open TwitterClone.HttpHandlers
 open TwitterClone.Models.Tweet
 open TwitterClone.Models.User
 open TwitterClone.Models.Retweet
@@ -25,6 +26,7 @@ let webApp =
         subRoute "/api"
             (choose [
                 GET >=> choose [
+                    route "/comp" >=> handleGetComp
                     route "/posts/own" >=> authorize >=> handleGetTweet
                 ]
                 POST >=> choose [
